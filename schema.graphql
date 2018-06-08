@@ -1,0 +1,25 @@
+﻿type Chat {
+  createdAt: String!
+  id: ID!
+  message: String!
+  userId: String!
+}
+
+type ChatConnection {
+  items: [Chat]
+  nextToken: String
+}
+
+type Mutation {
+  post(createdAt: String!, message: String!, userId: String!): Chat
+}
+
+type Query {
+  getChat(id: ID!): Chat
+  listChats(limit: Int, nextToken: String): ChatConnection
+}
+
+type Subscription {
+  subscribeToChats: Chat
+    @aws_subscribe(mutations:["post"])
+}
